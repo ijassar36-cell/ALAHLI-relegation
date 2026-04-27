@@ -22,7 +22,7 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-            padding-top: 0; /* منع أي مسافة علوية */
+            padding-top: 0;
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
@@ -35,7 +35,6 @@
             position: relative;
         }
 
-        /* الشريط العلوي الثابت - ارتفاع 35vh مع تدرج */
         .top-bar {
             position: fixed;
             top: 0;
@@ -55,7 +54,7 @@
             padding-bottom: 12px;
             padding-top: env(safe-area-inset-top);
             box-sizing: border-box;
-            pointer-events: none; /* يسمح بالتفاعل مع المحتوى خلفه */
+            pointer-events: none;
         }
         .top-bar span {
             font-weight: bold;
@@ -69,7 +68,6 @@
             pointer-events: auto;
         }
 
-        /* خلفية متحركة */
         body::before {
             content: '';
             position: fixed;
@@ -104,7 +102,7 @@
             margin-bottom: 8px;
         }
         .club-logo {
-            max-width: 150px;
+            max-width: 90px;  /* تم التصغير بنسبة 40% من 150px */
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
@@ -225,7 +223,7 @@
                 margin: 16px 12px 20px 12px;
             }
             .club-logo {
-                max-width: 120px;
+                max-width: 72px;  /* تصغير للجوال بنسبة 40% من 120px السابقة */
             }
             .units {
                 gap: 0.9rem;
