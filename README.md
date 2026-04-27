@@ -40,7 +40,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 25.3vh;
+            height: 15.3vh;
             background: linear-gradient(to bottom, 
                         rgba(1,10,8,1), 
                         rgba(1,10,8,0.95), 
