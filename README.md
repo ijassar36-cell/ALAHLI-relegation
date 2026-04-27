@@ -22,7 +22,7 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-            padding-top: calc(60px + env(safe-area-inset-top) + 16px); /* المسافة العلوية للشريط + هامش إضافي */
+            padding-top: 0; /* بدون أي مسافة علوية */
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
@@ -41,26 +41,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            height: 90px;
+            background: linear-gradient(to bottom, rgba(1,10,8,0.95), rgba(1,10,8,0.7), transparent);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
             padding-top: env(safe-area-inset-top);
-            height: calc(60px + env(safe-area-inset-top));
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            border-bottom: 0.5px solid rgba(0, 255, 200, 0.3);
+            box-sizing: border-box;
+            pointer-events: none; /* يسمح بالضغط على المحتوى خلفه */
         }
         .top-bar span {
-            font-size: 1rem;
             font-weight: bold;
             color: #e0fff5;
-            text-shadow: 0 0 4px #00ffcc88;
-            letter-spacing: 0.5px;
-            padding: 0 12px;
+            font-size: 0.95rem;
             text-align: center;
+            padding: 0 12px;
+            text-shadow: 0 0 4px #00ffcc66;
+            letter-spacing: 0.3px;
             line-height: 1.3;
+            pointer-events: auto; /* يسمح بتحديد النص إذا لزم */
         }
 
         /* خلفية متحركة */
@@ -85,7 +85,7 @@
             padding: 24px 20px 28px;
             max-width: 600px;
             width: 100%;
-            margin: 0 16px 20px 16px;
+            margin: 20px 16px 20px 16px; /* هامش علوي لمنع الالتصاق بالشريط */
             text-align: center;
             box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
             border: 1px solid rgba(0, 255, 200, 0.3);
@@ -111,8 +111,6 @@
         .club-logo:active {
             transform: scale(0.98);
         }
-
-        /* تم حذف h1 من البطاقة لأنه نُقل إلى الشريط العلوي */
 
         .counter-box {
             background: rgba(0, 20, 18, 0.7);
@@ -215,13 +213,10 @@
         }
 
         @media (max-width: 550px) {
-            body {
-                padding-top: calc(60px + env(safe-area-inset-top) + 12px);
-            }
             .card {
                 padding: 20px 16px 24px;
                 border-radius: 40px;
-                margin: 0 12px 20px 12px;
+                margin: 16px 12px 20px 12px;
             }
             .club-logo {
                 max-width: 120px;
