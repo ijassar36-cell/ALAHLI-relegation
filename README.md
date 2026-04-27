@@ -71,7 +71,8 @@
         .top-bar .highlight-box span {
             font-weight: bold;
             color: #eafff0;
-            font-size: clamp(0.85rem, 4.4vw, 1.1rem);
+            /* تم تصغير حجم الخط بنسبة 20% */
+            font-size: clamp(0.68rem, 3.52vw, 0.88rem);
             text-align: center;
             text-shadow: 0 0 5px #00ccaa;
             letter-spacing: 0.3px;
@@ -136,18 +137,18 @@
             border: 1px solid rgba(0, 255, 200, 0.5);
         }
 
-        /* العداد: الأرقام ثم الكلمة (يوم، ساعة، دقيقة، ثانية) */
+        /* العداد: أرقام عربية + كلمات بعدها */
         .counter {
             font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: bold;
-            font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
+            font-family: 'Cairo', 'Segoe UI', 'Tahoma', system-ui, sans-serif;
             line-height: 1.6;
             color: #ebfff9;
             text-shadow: 0 0 8px #00ffc3, 0 0 2px #00ccaa;
             word-break: break-word;
-            letter-spacing: 1px;
+            letter-spacing: 0px;
             animation: subtleGlow 2s infinite alternate;
-            direction: ltr;      /* الأرقام ثم النص العربي يظهر بشكل طبيعي */
+            direction: rtl;
             text-align: center;
         }
 
@@ -321,6 +322,18 @@
         let lastSyncPerf = null;
         let hasValidSync = false;
         
+        function toArabicNumerals(num) {
+            const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            return num.toString().split('').map(digit => arabicDigits[parseInt(digit)]).join('');
+        }
+        
+        function formatTwoDigitsArabic(num) {
+            if (num < 10) {
+                return toArabicNumerals(0) + toArabicNumerals(num);
+            }
+            return toArabicNumerals(num);
+        }
+        
         function getCurrentRiyadhTime() {
             if (hasValidSync && lastSyncedRiyadhTime && lastSyncPerf !== null) {
                 const elapsedMs = performance.now() - lastSyncPerf;
@@ -347,15 +360,12 @@
                 counterEl.innerHTML = "⚠️ خطأ في التوقيت";
                 return;
             }
-            const daysNum = diff.days;
-            const hoursNum = diff.hours;
-            const minutesNum = diff.minutes;
-            const secondsNum = diff.seconds;
-            const hoursStr = hoursNum < 10 ? '0' + hoursNum : hoursNum.toString();
-            const minutesStr = minutesNum < 10 ? '0' + minutesNum : minutesNum.toString();
-            const secondsStr = secondsNum < 10 ? '0' + secondsNum : secondsNum.toString();
-            // الأرقام ثم الكلمات (بعد الرقم مباشرة)
-            counterEl.innerHTML = `${daysNum} يوم<br>${hoursStr} ساعة<br>${minutesStr} دقيقة<br>${secondsStr} ثانية`;
+            const daysArabic = toArabicNumerals(diff.days);
+            const hoursArabic = formatTwoDigitsArabic(diff.hours);
+            const minutesArabic = formatTwoDigitsArabic(diff.minutes);
+            const secondsArabic = formatTwoDigitsArabic(diff.seconds);
+            
+            counterEl.innerHTML = `${daysArabic} يوم<br>${hoursArabic} ساعة<br>${minutesArabic} دقيقة<br>${secondsArabic} ثانية`;
         }
         
         function updateDisplay() {
