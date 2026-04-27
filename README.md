@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>⏳ عداد هبوط الأهلي | دوري يلو</title>
     <style>
         * {
@@ -10,6 +10,12 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation; /* تحسين اللمس ومنع التكبير الزائد */
+        }
+
+        body, html {
+            overflow-x: hidden; /* منع التمرير الأفقي */
+            width: 100%;
         }
 
         body {
@@ -21,7 +27,7 @@
             align-items: center;
             padding: 16px;
             position: relative;
-            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%; /* منع تغيير حجم الخط تلقائياً في الجوال */
         }
 
         /* خلفية متحركة خفيفة */
@@ -66,9 +72,8 @@
             transition: transform 0.25s ease, filter 0.3s;
             border-radius: 20px;
         }
-        .club-logo:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(0 0 18px #66ffdd);
+        .club-logo:active {
+            transform: scale(0.98);
         }
 
         h1 {
@@ -96,7 +101,7 @@
         }
 
         .counter {
-            font-size: 2.8rem;
+            font-size: clamp(1.6rem, 5vw, 2.6rem); /* حجم مرن لا يتجاوز 2.6rem ولا يقل عن 1.6rem */
             font-weight: bold;
             font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
             line-height: 1.4;
@@ -157,11 +162,11 @@
             border-radius: 40px;
             transition: all 0.2s;
             border: 0.5px solid #6effdc60;
+            touch-action: manipulation;
         }
-        .whatsapp-link:hover {
-            background: #25d36630;
-            transform: scale(1.02);
-            border-color: #25D366;
+        .whatsapp-link:active {
+            transform: scale(0.97);
+            background: #25d36640;
         }
         .whatsapp-link span {
             color: #dafef2;
@@ -190,7 +195,7 @@
             color: #bbffee;
         }
 
-        /* تحسينات الجوال */
+        /* تحسينات الجوال (padding 12px على body) */
         @media (max-width: 550px) {
             body {
                 padding: 12px;
@@ -200,9 +205,6 @@
             .card {
                 padding: 20px 16px 24px;
                 border-radius: 40px;
-            }
-            .counter {
-                font-size: 2.2rem;
             }
             h1 {
                 font-size: 1.35rem;
@@ -234,9 +236,6 @@
 
         /* للأجهزة الصغيرة جداً */
         @media (max-width: 400px) {
-            .counter {
-                font-size: 1.8rem;
-            }
             h1 {
                 font-size: 1.2rem;
             }
@@ -244,11 +243,9 @@
                 gap: 0.7rem;
                 font-size: 0.7rem;
             }
-        }
-
-        /* منع التكبير الزائد عبر اللمس (مع بقاء إمكانية التكبير اليدوي البسيط) */
-        input, textarea, button, a {
-            touch-action: manipulation;
+            .counter {
+                font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            }
         }
 
         /* تأثير وميض خفيف على العداد */
