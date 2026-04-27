@@ -35,13 +35,12 @@
             position: relative;
         }
 
-        /* الشريط العلوي - تقليل إضافي بنسبة 15% ليصبح 25.3vh */
         .top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 25.3vh;  /* 35vh * 0.85 * 0.85 = 25.2875 -> 25.3vh */
+            height: 25.3vh;
             background: linear-gradient(to bottom, 
                         rgba(1,10,8,1), 
                         rgba(1,10,8,0.95), 
@@ -102,8 +101,9 @@
             align-items: center;
             margin-bottom: 8px;
         }
+        /* تصغير الصورة بنسبة 50%: من 90px إلى 45px */
         .club-logo {
-            max-width: 90px;
+            max-width: 45px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
@@ -223,8 +223,9 @@
                 border-radius: 40px;
                 margin: 16px 12px 20px 12px;
             }
+            /* تصغير الصورة للجوال بنسبة 50%: من 72px إلى 36px */
             .club-logo {
-                max-width: 72px;
+                max-width: 36px;
             }
             .units {
                 gap: 0.9rem;
