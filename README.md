@@ -22,7 +22,8 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-            padding-top: 0;
+            /* منع تغطية البار العلوي الثابت بالمحتوى */
+            padding-top: calc(16.5vh + env(safe-area-inset-top) + 8px);
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
@@ -35,18 +36,18 @@
             position: relative;
         }
 
+        /* ----- البار العلوي: غير شفاف (صلب) ----- */
         .top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 15.3vh;
-            background: linear-gradient(to bottom, 
-                        rgba(1,10,8,1), 
-                        rgba(1,10,8,0.95), 
-                        rgba(1,10,8,0.85), 
-                        rgba(1,10,8,0.6), 
-                        transparent);
+            height: auto;
+            min-height: 15.3vh;
+            background: #02100c;   /* لون خلفية معتم تماماً */
+            background: linear-gradient(145deg, #031814 0%, #010f0b 100%);
+            border-bottom: 2px solid rgba(0, 255, 200, 0.35);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -55,19 +56,22 @@
             padding-top: env(safe-area-inset-top);
             box-sizing: border-box;
             pointer-events: none;
+            backdrop-filter: none; /* إزالة أي تأثير شفافية */
         }
         .top-bar span {
             font-weight: bold;
-            color: #e0fff5;
-            font-size: clamp(0.85rem, 4vw, 1rem);
+            color: #eafff0;
+            font-size: clamp(0.85rem, 4.4vw, 1.1rem);
             text-align: center;
             padding: 0 12px;
-            text-shadow: 0 0 6px #00ffcc66;
+            text-shadow: 0 0 5px #00ccaa;
             letter-spacing: 0.3px;
-            line-height: 1.4;
+            line-height: 1.45;
             pointer-events: auto;
+            background: transparent;
         }
 
+        /* تأثير الخلفية (شبكة خفيفة) */
         body::before {
             content: '';
             position: fixed;
@@ -83,16 +87,16 @@
         .card {
             position: relative;
             z-index: 2;
-            background: rgba(5, 25, 22, 0.7);
+            background: rgba(5, 25, 22, 0.72);
             backdrop-filter: blur(18px);
             border-radius: 48px;
-            padding: 24px 20px 28px;
+            padding: 22px 20px 28px;
             max-width: 600px;
             width: 100%;
-            margin: 20px 16px 20px 16px;
+            margin: 0px 16px 24px 16px;
             text-align: center;
-            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
-            border: 1px solid rgba(0, 255, 200, 0.3);
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.3), 0 0 20px rgba(0, 255, 200, 0.3);
+            border: 1px solid rgba(0, 255, 200, 0.4);
         }
 
         .logo-area {
@@ -101,20 +105,19 @@
             align-items: center;
             margin-bottom: 8px;
         }
-        /* تصغير الصورة بنسبة 50%: من 90px إلى 45px */
+        /* تصغير الشعار – محافظ على النسبة */
         .club-logo {
-            max-width: 45px;
+            max-width: 47px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
             border-radius: 20px;
             background: transparent;
             mix-blend-mode: multiply;
-            isolation: isolate;
         }
         .club-logo:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .counter-box {
@@ -127,27 +130,36 @@
             border: 1px solid rgba(0, 255, 200, 0.5);
         }
 
+        /* عداد بأرقام إنجليزية (لاتينية) و保持阿拉伯文本 */
         .counter {
-            font-size: clamp(1.6rem, 5vw, 2.6rem);
+            font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: bold;
             font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
-            line-height: 1.4;
-            color: #cafff5;
+            line-height: 1.45;
+            color: #ebfff9;
             text-shadow: 0 0 8px #00ffc3, 0 0 2px #00ccaa;
             word-break: break-word;
             letter-spacing: 1px;
             animation: subtleGlow 2s infinite alternate;
+            direction: ltr;   /* الأرقام تظهر بالاتجاه الغربي مع سياق عربي */
+        }
+
+        /* ضمان أن النص العربي (يوم، ساعة…) يظهر في سطر منفصل بشكل صحيح */
+        .counter br {
+            display: block;
+            content: "";
+            margin: 4px 0;
         }
 
         .units {
             display: flex;
             justify-content: center;
-            gap: 1.2rem;
+            gap: 1.3rem;
             flex-wrap: wrap;
             margin-top: 12px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: #b2ffe6;
+            color: #bcffee;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -198,38 +210,45 @@
         }
 
         .forever-note {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             margin-top: 12px;
-            color: #bdffea;
-            background: rgba(0,0,0,0.25);
+            color: #d2fff0;
+            background: rgba(0,0,0,0.3);
             display: inline-block;
-            padding: 5px 14px;
+            padding: 5px 16px;
             border-radius: 50px;
             backdrop-filter: blur(4px);
+            font-weight: 500;
         }
 
         .footnote {
             margin-top: 16px;
             font-size: 0.6rem;
-            opacity: 0.65;
+            opacity: 0.7;
             border-top: 1px dashed #2effcf60;
             padding-top: 12px;
-            color: #bbffee;
+            color: #e1fff2;
         }
 
+        /* تحسينات الجوال */
         @media (max-width: 550px) {
-            .card {
-                padding: 20px 16px 24px;
-                border-radius: 40px;
-                margin: 16px 12px 20px 12px;
+            body {
+                padding-top: calc(17vh + env(safe-area-inset-top) + 5px);
             }
-            /* تصغير الصورة للجوال بنسبة 50%: من 72px إلى 36px */
+            .card {
+                padding: 18px 14px 24px;
+                border-radius: 40px;
+                margin: 0 12px 20px 12px;
+            }
             .club-logo {
-                max-width: 36px;
+                max-width: 38px;
             }
             .units {
                 gap: 0.9rem;
                 font-size: 0.75rem;
+            }
+            .counter {
+                font-size: clamp(1.4rem, 4.8vw, 2.3rem);
             }
             .contact-area {
                 padding: 10px 12px;
@@ -255,13 +274,13 @@
                 font-size: 0.7rem;
             }
             .counter {
-                font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+                font-size: clamp(1.3rem, 4.5vw, 2rem);
             }
         }
 
         @keyframes subtleGlow {
             0% { text-shadow: 0 0 4px #00ffcc; }
-            100% { text-shadow: 0 0 12px #00ffe0; }
+            100% { text-shadow: 0 0 14px #00ffe0; }
         }
     </style>
 </head>
@@ -304,28 +323,34 @@
 
 <script>
     (function() {
+        // تاريخ الهبوط الرسمي – 27 يونيو 2022 بتوقيت الرياض (+03:00)
         const RELEGATION_DATE_STR = "2022-06-27T00:00:00+03:00";
         let relegationTime = new Date(RELEGATION_DATE_STR);
         if (isNaN(relegationTime.getTime())) {
+            // Fallback آمن (توقيت UTC+3 نفس الـ 27 يونيو 2022)
             const fallbackUTC = Date.UTC(2022, 5, 26, 21, 0, 0);
             relegationTime = new Date(fallbackUTC);
         }
         
         const counterEl = document.getElementById("counter");
         
+        // متغيرات تزامن الوقت مع API (آلية الاحتفاظ بالدقة)
         let lastSyncedRiyadhTime = null;
         let lastSyncPerf = null;
         let hasValidSync = false;
         
+        // الحصول على الوقت الحالي في الرياض (توقيت +3)
         function getCurrentRiyadhTime() {
             if (hasValidSync && lastSyncedRiyadhTime && lastSyncPerf !== null) {
                 const elapsedMs = performance.now() - lastSyncPerf;
                 return new Date(lastSyncedRiyadhTime.getTime() + elapsedMs);
             }
+            // احتياطي: استخدام وقت الجهاز مع إزاحة +3 ساعات (توقيت الرياض)
             const nowDevice = new Date();
             return new Date(nowDevice.getTime() + (3 * 60 * 60 * 1000));
         }
         
+        // حساب الفرق منذ الهبوط (أيام وساعات ودقائق وثواني)
         function computeTimeDifference(riyadhNow) {
             if (!riyadhNow || isNaN(riyadhNow.getTime())) return null;
             const diffMs = riyadhNow - relegationTime;
@@ -338,16 +363,26 @@
             return { days, hours, minutes, seconds };
         }
         
+        // عرض العداد بأرقام إنجليزية (لاتينية) خصوصاً بعد عبارة "يوم"
         function renderCounter(diff) {
             if (!diff) {
-                counterEl.innerHTML = "⚠️ خطأ";
+                counterEl.innerHTML = "⚠️ خطأ في التوقيت";
                 return;
             }
-            const daysStr = diff.days.toLocaleString('ar-EG');
-            const hoursStr = diff.hours < 10 ? '0' + diff.hours : diff.hours;
-            const minutesStr = diff.minutes < 10 ? '0' + diff.minutes : diff.minutes;
-            const secondsStr = diff.seconds < 10 ? '0' + diff.seconds : diff.seconds;
-            counterEl.innerHTML = `${daysStr} يوم<br>${hoursStr} ساعة<br>${minutesStr} دقيقة<br>${secondsStr} ثانية`;
+            // استخدام الأرقام الإنجليزية (الأساسية) عبر toString() وتحويل مباشر
+            const daysNum = diff.days;          // عدد صحيح، يظهر كإنجليزي تلقائياً (مثال: 1250)
+            const hoursNum = diff.hours;
+            const minutesNum = diff.minutes;
+            const secondsNum = diff.seconds;
+            
+            // تنسيق الساعات والدقائق والثواني بحيث تكون مكونة من خانتين (بأرقام إنجليزية)
+            const hoursStr = hoursNum < 10 ? '0' + hoursNum : hoursNum.toString();
+            const minutesStr = minutesNum < 10 ? '0' + minutesNum : minutesNum.toString();
+            const secondsStr = secondsNum < 10 ? '0' + secondsNum : secondsNum.toString();
+            
+            // تعبئة المحتوى: الأرقام إنجليزية 100%، والنصوص "يوم" و"ساعة" إلخ عربية.
+            // المتطلب: "وحد ارقام العداد بالانجليزي خصوصاً بعد عبارة يوم" -> أيام وكل الأرقام لاتينية.
+            counterEl.innerHTML = `${daysNum} يوم<br>${hoursStr} ساعة<br>${minutesStr} دقيقة<br>${secondsStr} ثانية`;
         }
         
         function updateDisplay() {
@@ -356,6 +391,7 @@
             renderCounter(diff);
         }
         
+        // مزامنة دقيقة عبر API worldtimeapi (توقيت الرياض الرسمي)
         async function syncWithAPITime() {
             try {
                 const controller = new AbortController();
@@ -371,6 +407,7 @@
                 if (!data || !data.utc_datetime) throw new Error("no utc_datetime");
                 const utcDate = new Date(data.utc_datetime);
                 if (isNaN(utcDate.getTime())) throw new Error("invalid utc");
+                // تحويل إلى توقيت الرياض (UTC+3)
                 const riyadhTime = new Date(utcDate.getTime() + (3 * 60 * 60 * 1000));
                 
                 lastSyncedRiyadhTime = riyadhTime;
@@ -379,7 +416,7 @@
                 updateDisplay();
                 return true;
             } catch (error) {
-                console.log("API sync failed, using local estimate");
+                // في حالة فشل الـ API، يستمر العرض بالتقدير المحلي (مع احترام إزاحة الرياض)
                 updateDisplay();
                 return false;
             }
@@ -395,15 +432,22 @@
         
         function startPeriodicSync() {
             if (syncInterval) clearInterval(syncInterval);
+            // مزامنة كل 30 ثانية للحفاظ على دقة زمنية فائقة
             syncInterval = setInterval(async () => { await syncWithAPITime(); }, 30000);
         }
         
         async function init() {
             startDisplayTicker();
             startPeriodicSync();
-            await syncWithAPITime();
+            await syncWithAPITime();   // محاولة أولية للحصول على توقيت الخادم
+            // في حال العودة إلى الصفحة بعد تصغير المتصفح، نتأكد من المزامنة
             document.addEventListener("visibilitychange", () => {
-                if (!document.hidden && (!hasValidSync)) syncWithAPITime();
+                if (!document.hidden && (!hasValidSync)) {
+                    syncWithAPITime();
+                } else if (!document.hidden && hasValidSync) {
+                    // تحديث فوري للتأكد من الدقة عند العودة
+                    updateDisplay();
+                }
             });
         }
         
