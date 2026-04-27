@@ -2,23 +2,24 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>⏳ عداد هبوط الأهلي | دوري يلو</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             min-height: 100vh;
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
-            font-family: 'Segoe UI', 'Tahoma', 'Cairo', system-ui, monospace;
+            font-family: 'Segoe UI', 'Tahoma', 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem;
+            padding: 16px;
             position: relative;
             overflow-x: hidden;
         }
@@ -39,11 +40,11 @@
         .card {
             position: relative;
             z-index: 2;
-            background: rgba(5, 25, 22, 0.65);
+            background: rgba(5, 25, 22, 0.7);
             backdrop-filter: blur(18px);
-            border-radius: 3.5rem;
-            padding: 2rem 1.8rem 2rem;
-            max-width: 720px;
+            border-radius: 48px;
+            padding: 24px 20px 28px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
             box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
@@ -55,15 +56,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 8px;
         }
         .club-logo {
-            max-width: 200px;
+            max-width: 150px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 12px #00ffcc) brightness(1.05);
             transition: transform 0.25s ease, filter 0.3s;
-            border-radius: 24px;
+            border-radius: 20px;
         }
         .club-logo:hover {
             transform: scale(1.02);
@@ -71,94 +72,89 @@
         }
 
         h1 {
-            font-size: 1.9rem;
+            font-size: 1.6rem;
             font-weight: 800;
             background: linear-gradient(135deg, #e0fff5, #00f2d0);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             letter-spacing: -0.3px;
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
             text-shadow: 0 0 8px rgba(0,255,200,0.4);
-        }
-
-        /* تم حذف البادج بالكامل (بدون أي نص) */
-        .badge {
-            display: none;
+            line-height: 1.3;
+            padding: 0 4px;
         }
 
         .counter-box {
             background: rgba(0, 20, 18, 0.7);
             backdrop-filter: blur(8px);
-            padding: 1.8rem 1rem;
-            border-radius: 2.5rem;
-            margin: 1rem 0 1.2rem;
+            padding: 20px 12px;
+            border-radius: 40px;
+            margin: 12px 0 16px;
             box-shadow: inset 0 0 15px #00000055, 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 200, 0.4);
             border: 1px solid rgba(0, 255, 200, 0.5);
         }
 
         .counter {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
             font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
             line-height: 1.4;
             color: #cafff5;
             text-shadow: 0 0 8px #00ffc3, 0 0 2px #00ccaa;
             word-break: break-word;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .units {
             display: flex;
             justify-content: center;
-            gap: 1.8rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
-            margin-top: 0.6rem;
-            font-size: 1rem;
+            margin-top: 12px;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #b2ffe6;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
-        /* تم إخفاء عنصر حالة المزامنة نهائياً (لا تظهر أي عبارة) */
+        /* تم إخفاء عنصر الحالة نهائياً */
         .status-area {
             display: none;
         }
 
         .contact-area {
-            margin-top: 1.8rem;
+            margin-top: 20px;
             background: rgba(0, 30, 26, 0.7);
             backdrop-filter: blur(8px);
-            border-radius: 3rem;
-            padding: 0.9rem 1.2rem;
+            border-radius: 60px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 12px;
             flex-wrap: wrap;
             border: 0.5px solid rgba(0, 255, 200, 0.4);
-            transition: all 0.2s;
         }
         .contact-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #effffa;
             font-weight: 500;
         }
         .whatsapp-icon {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             filter: drop-shadow(0 0 3px #25D366);
-            transition: transform 0.2s;
         }
         .whatsapp-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             text-decoration: none;
             background: #075e5440;
-            padding: 0.4rem 1.2rem;
-            border-radius: 60px;
+            padding: 6px 14px;
+            border-radius: 40px;
             transition: all 0.2s;
             border: 0.5px solid #6effdc60;
         }
@@ -170,48 +166,89 @@
         .whatsapp-link span {
             color: #dafef2;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             direction: ltr;
         }
 
         .forever-note {
-            font-size: 0.75rem;
-            margin-top: 1rem;
+            font-size: 0.7rem;
+            margin-top: 12px;
             color: #bdffea;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.25);
             display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
+            padding: 5px 14px;
+            border-radius: 50px;
             backdrop-filter: blur(4px);
-            letter-spacing: 0.5px;
         }
 
         .footnote {
-            margin-top: 1.2rem;
-            font-size: 0.65rem;
+            margin-top: 16px;
+            font-size: 0.6rem;
             opacity: 0.65;
             border-top: 1px dashed #2effcf60;
-            padding-top: 0.8rem;
+            padding-top: 12px;
             color: #bbffee;
         }
 
+        /* تحسينات الجوال */
         @media (max-width: 550px) {
+            body {
+                padding: 12px;
+                align-items: flex-start;
+                padding-top: 24px;
+            }
             .card {
-                padding: 1.5rem;
+                padding: 20px 16px 24px;
+                border-radius: 40px;
             }
             .counter {
                 font-size: 2.2rem;
             }
             h1 {
-                font-size: 1.4rem;
+                font-size: 1.35rem;
             }
             .club-logo {
-                max-width: 140px;
+                max-width: 120px;
             }
             .units {
-                gap: 1rem;
-                font-size: 0.8rem;
+                gap: 0.9rem;
+                font-size: 0.75rem;
             }
+            .contact-area {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            .whatsapp-link {
+                padding: 4px 12px;
+            }
+            .whatsapp-link span {
+                font-size: 0.75rem;
+            }
+            .contact-text {
+                font-size: 0.75rem;
+            }
+            .forever-note {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* للأجهزة الصغيرة جداً */
+        @media (max-width: 400px) {
+            .counter {
+                font-size: 1.8rem;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+            .units {
+                gap: 0.7rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* منع التكبير الزائد عبر اللمس (مع بقاء إمكانية التكبير اليدوي البسيط) */
+        input, textarea, button, a {
+            touch-action: manipulation;
         }
 
         /* تأثير وميض خفيف على العداد */
@@ -273,13 +310,12 @@
         let lastSyncPerf = null;
         let hasValidSync = false;
         
-        // دقة التوقيت باستخدام performance.now() و API خارجي
         function getCurrentRiyadhTime() {
             if (hasValidSync && lastSyncedRiyadhTime && lastSyncPerf !== null) {
                 const elapsedMs = performance.now() - lastSyncPerf;
                 return new Date(lastSyncedRiyadhTime.getTime() + elapsedMs);
             }
-            // خلفية آمنة (توقيت الجهاز +3) بدون أي رسائل
+            // خلفية آمنة (توقيت الجهاز +3) بدون رسائل
             const nowDevice = new Date();
             return new Date(nowDevice.getTime() + (3 * 60 * 60 * 1000));
         }
@@ -314,7 +350,6 @@
             renderCounter(diff);
         }
         
-        // مزامنة API باستخدام utc_datetime وتحويل إلى الرياض
         async function syncWithAPITime() {
             try {
                 const controller = new AbortController();
@@ -339,9 +374,6 @@
                 return true;
             } catch (error) {
                 console.log("API sync failed, using local estimate");
-                if (!hasValidSync) {
-                    // لا نعرض أي رسالة للمستخدم
-                }
                 updateDisplay();
                 return false;
             }
@@ -364,7 +396,6 @@
             startDisplayTicker();
             startPeriodicSync();
             await syncWithAPITime();
-            // إعادة محاولة عند العودة للصفحة (صامتة)
             document.addEventListener("visibilitychange", () => {
                 if (!document.hidden && (!hasValidSync)) syncWithAPITime();
             });
