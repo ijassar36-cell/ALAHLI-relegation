@@ -22,7 +22,6 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-            /* منع تغطية البار العلوي الثابت بالمحتوى */
             padding-top: calc(16.5vh + env(safe-area-inset-top) + 8px);
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
@@ -36,7 +35,7 @@
             position: relative;
         }
 
-        /* ----- البار العلوي: خلفية الصورة الجديدة ------ */
+        /* ----- البار العلوي: خلفية الصورة + مربع مميز ----- */
         .top-bar {
             position: fixed;
             top: 0;
@@ -44,7 +43,6 @@
             width: 100%;
             height: auto;
             min-height: 30.3vh;
-            /* الصورة المطلوبة كخلفية */
             background: url('https://i.ibb.co/XfY4TcH7/EC3-DE5-E1-58-D1-4-F19-831-D-28142868695-A.png') no-repeat center center;
             background-size: cover;
             border-bottom: 2px solid rgba(0, 255, 200, 0.35);
@@ -57,22 +55,30 @@
             padding-top: env(safe-area-inset-top);
             box-sizing: border-box;
             pointer-events: none;
-            backdrop-filter: none;
         }
-        .top-bar span {
+        
+        .top-bar .highlight-box {
+            pointer-events: auto;
+            background: rgba(0, 15, 12, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 10px 22px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0, 255, 200, 0.7);
+            box-shadow: 0 0 14px rgba(0, 255, 200, 0.4), inset 0 0 6px rgba(0, 255, 200, 0.2);
+        }
+        
+        .top-bar .highlight-box span {
             font-weight: bold;
             color: #eafff0;
             font-size: clamp(0.85rem, 4.4vw, 1.1rem);
             text-align: center;
-            padding: 0 12px;
             text-shadow: 0 0 5px #00ccaa;
             letter-spacing: 0.3px;
             line-height: 1.45;
-            pointer-events: auto;
-            background: transparent;
         }
 
-        /* تأثير الخلفية (شبكة خفيفة) */
+        /* شبكة خلفية */
         body::before {
             content: '';
             position: fixed;
@@ -106,7 +112,6 @@
             align-items: center;
             margin-bottom: 8px;
         }
-        /* تصغير الشعار – محافظ على النسبة */
         .club-logo {
             max-width: 27px;
             width: 100%;
@@ -124,45 +129,31 @@
         .counter-box {
             background: rgba(0, 20, 18, 0.7);
             backdrop-filter: blur(8px);
-            padding: 20px 12px;
+            padding: 22px 12px;
             border-radius: 40px;
             margin: 12px 0 16px;
             box-shadow: inset 0 0 15px #00000055, 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 200, 0.4);
             border: 1px solid rgba(0, 255, 200, 0.5);
         }
 
-        /* عداد بأرقام إنجليزية (لاتينية) و保持阿拉伯文本 */
+        /* العداد: الأرقام ثم الكلمة (يوم، ساعة، دقيقة، ثانية) */
         .counter {
             font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: bold;
             font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
-            line-height: 1.45;
+            line-height: 1.6;
             color: #ebfff9;
             text-shadow: 0 0 8px #00ffc3, 0 0 2px #00ccaa;
             word-break: break-word;
             letter-spacing: 1px;
             animation: subtleGlow 2s infinite alternate;
-            direction: ltr;   /* الأرقام تظهر بالاتجاه الغربي مع سياق عربي */
+            direction: ltr;      /* الأرقام ثم النص العربي يظهر بشكل طبيعي */
+            text-align: center;
         }
 
-        /* ضمان أن النص العربي (يوم، ساعة…) يظهر في سطر منفصل بشكل صحيح */
         .counter br {
             display: block;
-            content: "";
-            margin: 4px 0;
-        }
-
-        .units {
-            display: flex;
-            justify-content: center;
-            gap: 1.3rem;
-            flex-wrap: wrap;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #bcffee;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin: 5px 0;
         }
 
         .contact-area {
@@ -231,7 +222,6 @@
             color: #e1fff2;
         }
 
-        /* تحسينات الجوال */
         @media (max-width: 550px) {
             body {
                 padding-top: calc(17vh + env(safe-area-inset-top) + 5px);
@@ -243,10 +233,6 @@
             }
             .club-logo {
                 max-width: 38px;
-            }
-            .units {
-                gap: 0.9rem;
-                font-size: 0.75rem;
             }
             .counter {
                 font-size: clamp(1.4rem, 4.8vw, 2.3rem);
@@ -267,13 +253,13 @@
             .forever-note {
                 font-size: 0.65rem;
             }
+            .top-bar .highlight-box {
+                padding: 6px 16px;
+                margin-bottom: 8px;
+            }
         }
 
         @media (max-width: 400px) {
-            .units {
-                gap: 0.7rem;
-                font-size: 0.7rem;
-            }
             .counter {
                 font-size: clamp(1.3rem, 4.5vw, 2rem);
             }
@@ -288,7 +274,9 @@
 <body>
 
 <div class="top-bar">
-    <span>📉 عداد هبوط نادي الأهلي إلى دوري يلو منذ ٢٧ يونيو ٢٠٢٢</span>
+    <div class="highlight-box">
+        <span>📉 عداد هبوط نادي الأهلي إلى دوري يلو منذ ٢٧ يونيو ٢٠٢٢</span>
+    </div>
 </div>
 
 <div class="card">
@@ -300,9 +288,6 @@
     
     <div class="counter-box">
         <div class="counter" id="counter">⏳ جارٍ التحميل...</div>
-        <div class="units">
-            <span>📆 أيام</span>  <span>⏰ ساعات</span>  <span>⏱️ دقائق</span>  <span>⚡ ثواني</span>
-        </div>
     </div>
     
     <div class="forever-note">
@@ -324,34 +309,27 @@
 
 <script>
     (function() {
-        // تاريخ الهبوط الرسمي – 27 يونيو 2022 بتوقيت الرياض (+03:00)
         const RELEGATION_DATE_STR = "2022-06-27T00:00:00+03:00";
         let relegationTime = new Date(RELEGATION_DATE_STR);
         if (isNaN(relegationTime.getTime())) {
-            // Fallback آمن (توقيت UTC+3 نفس الـ 27 يونيو 2022)
             const fallbackUTC = Date.UTC(2022, 5, 26, 21, 0, 0);
             relegationTime = new Date(fallbackUTC);
         }
         
         const counterEl = document.getElementById("counter");
-        
-        // متغيرات تزامن الوقت مع API (آلية الاحتفاظ بالدقة)
         let lastSyncedRiyadhTime = null;
         let lastSyncPerf = null;
         let hasValidSync = false;
         
-        // الحصول على الوقت الحالي في الرياض (توقيت +3)
         function getCurrentRiyadhTime() {
             if (hasValidSync && lastSyncedRiyadhTime && lastSyncPerf !== null) {
                 const elapsedMs = performance.now() - lastSyncPerf;
                 return new Date(lastSyncedRiyadhTime.getTime() + elapsedMs);
             }
-            // احتياطي: استخدام وقت الجهاز مع إزاحة +3 ساعات (توقيت الرياض)
             const nowDevice = new Date();
             return new Date(nowDevice.getTime() + (3 * 60 * 60 * 1000));
         }
         
-        // حساب الفرق منذ الهبوط (أيام وساعات ودقائق وثواني)
         function computeTimeDifference(riyadhNow) {
             if (!riyadhNow || isNaN(riyadhNow.getTime())) return null;
             const diffMs = riyadhNow - relegationTime;
@@ -364,25 +342,19 @@
             return { days, hours, minutes, seconds };
         }
         
-        // عرض العداد بأرقام إنجليزية (لاتينية) خصوصاً بعد عبارة "يوم"
         function renderCounter(diff) {
             if (!diff) {
                 counterEl.innerHTML = "⚠️ خطأ في التوقيت";
                 return;
             }
-            // استخدام الأرقام الإنجليزية (الأساسية) عبر toString() وتحويل مباشر
-            const daysNum = diff.days;          // عدد صحيح، يظهر كإنجليزي تلقائياً (مثال: 1250)
+            const daysNum = diff.days;
             const hoursNum = diff.hours;
             const minutesNum = diff.minutes;
             const secondsNum = diff.seconds;
-            
-            // تنسيق الساعات والدقائق والثواني بحيث تكون مكونة من خانتين (بأرقام إنجليزية)
             const hoursStr = hoursNum < 10 ? '0' + hoursNum : hoursNum.toString();
             const minutesStr = minutesNum < 10 ? '0' + minutesNum : minutesNum.toString();
             const secondsStr = secondsNum < 10 ? '0' + secondsNum : secondsNum.toString();
-            
-            // تعبئة المحتوى: الأرقام إنجليزية 100%، والنصوص "يوم" و"ساعة" إلخ عربية.
-            // المتطلب: "وحد ارقام العداد بالانجليزي خصوصاً بعد عبارة يوم" -> أيام وكل الأرقام لاتينية.
+            // الأرقام ثم الكلمات (بعد الرقم مباشرة)
             counterEl.innerHTML = `${daysNum} يوم<br>${hoursStr} ساعة<br>${minutesStr} دقيقة<br>${secondsStr} ثانية`;
         }
         
@@ -392,7 +364,6 @@
             renderCounter(diff);
         }
         
-        // مزامنة دقيقة عبر API worldtimeapi (توقيت الرياض الرسمي)
         async function syncWithAPITime() {
             try {
                 const controller = new AbortController();
@@ -408,16 +379,13 @@
                 if (!data || !data.utc_datetime) throw new Error("no utc_datetime");
                 const utcDate = new Date(data.utc_datetime);
                 if (isNaN(utcDate.getTime())) throw new Error("invalid utc");
-                // تحويل إلى توقيت الرياض (UTC+3)
                 const riyadhTime = new Date(utcDate.getTime() + (3 * 60 * 60 * 1000));
-                
                 lastSyncedRiyadhTime = riyadhTime;
                 lastSyncPerf = performance.now();
                 hasValidSync = true;
                 updateDisplay();
                 return true;
             } catch (error) {
-                // في حالة فشل الـ API، يستمر العرض بالتقدير المحلي (مع احترام إزاحة الرياض)
                 updateDisplay();
                 return false;
             }
@@ -433,20 +401,17 @@
         
         function startPeriodicSync() {
             if (syncInterval) clearInterval(syncInterval);
-            // مزامنة كل 30 ثانية للحفاظ على دقة زمنية فائقة
             syncInterval = setInterval(async () => { await syncWithAPITime(); }, 30000);
         }
         
         async function init() {
             startDisplayTicker();
             startPeriodicSync();
-            await syncWithAPITime();   // محاولة أولية للحصول على توقيت الخادم
-            // في حال العودة إلى الصفحة بعد تصغير المتصفح، نتأكد من المزامنة
+            await syncWithAPITime();
             document.addEventListener("visibilitychange", () => {
                 if (!document.hidden && (!hasValidSync)) {
                     syncWithAPITime();
                 } else if (!document.hidden && hasValidSync) {
-                    // تحديث فوري للتأكد من الدقة عند العودة
                     updateDisplay();
                 }
             });
