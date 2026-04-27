@@ -36,7 +36,7 @@
             position: relative;
         }
 
-        /* ----- البار العلوي: غير شفاف (صلب) ----- */
+        /* ----- البار العلوي: بخلفية الصورة مع طبقة تعتيم لضمان قراءة النص ----- */
         .top-bar {
             position: fixed;
             top: 0;
@@ -44,10 +44,10 @@
             width: 100%;
             height: auto;
             min-height: 30.3vh;
-            background: #02100c;   /* لون خلفية معتم تماماً */
-            background: linear-gradient(145deg, #031814 0%, #010f0b 100%);
-            border-bottom: 2px solid rgba(0, 255, 200, 0.35);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+            /* إزالة الخلفية السابقة (التدرج) */
+            background: none;
+            border-bottom: 2px solid rgba(0, 255, 200, 0.5);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -56,19 +56,62 @@
             padding-top: env(safe-area-inset-top);
             box-sizing: border-box;
             pointer-events: none;
-            backdrop-filter: none; /* إزالة أي تأثير شفافية */
+            position: relative;
+            overflow: hidden;
         }
+
+        /* صورة الخلفية الرئيسية */
+        .top-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/XfY4TcH7/EC3-DE5-E1-58-D1-4-F19-831-D-28142868695-A.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* طبقة تعتيم شفافة لتحسين تباين النص والحد من شدة الصورة */
+        .top-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 8, 6, 0.65);
+            backdrop-filter: brightness(0.85) blur(0.8px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* النص داخل البار العلوي – يظهر فوق الطبقات مع خلفية مدمجة لقراءة فائقة */
         .top-bar span {
+            position: relative;
+            z-index: 3;
             font-weight: bold;
-            color: #eafff0;
+            color: #f0fffc;
             font-size: clamp(0.85rem, 4.4vw, 1.1rem);
             text-align: center;
-            padding: 0 12px;
-            text-shadow: 0 0 5px #00ccaa;
+            padding: 8px 18px;
+            text-shadow: 0 0 8px #00ccaa, 0 0 3px #006655;
             letter-spacing: 0.3px;
             line-height: 1.45;
             pointer-events: auto;
-            background: transparent;
+            background: rgba(2, 20, 16, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            border: 1px solid rgba(0, 255, 200, 0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            margin: 8px 12px;
+            width: auto;
+            max-width: 90%;
+            display: inline-block;
         }
 
         /* تأثير الخلفية (شبكة خفيفة) */
@@ -130,7 +173,7 @@
             border: 1px solid rgba(0, 255, 200, 0.5);
         }
 
-        /* عداد بأرقام إنجليزية (لاتينية) و保持阿拉伯文本 */
+        /* عداد بأرقام إنجليزية (لاتينية) وتبقي النصوص العربية في سطور منفصلة */
         .counter {
             font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: bold;
@@ -141,10 +184,10 @@
             word-break: break-word;
             letter-spacing: 1px;
             animation: subtleGlow 2s infinite alternate;
-            direction: ltr;   /* الأرقام تظهر بالاتجاه الغربي مع سياق عربي */
+            direction: ltr;   /* الأرقام باتجاه عربي/لاتيني صحيح */
         }
 
-        /* ضمان أن النص العربي (يوم، ساعة…) يظهر في سطر منفصل بشكل صحيح */
+        /* ضمان أن النص العربي (يوم، ساعة…) يظهر بشكل منفصل مع الأرقام */
         .counter br {
             display: block;
             content: "";
@@ -266,6 +309,11 @@
             .forever-note {
                 font-size: 0.65rem;
             }
+            .top-bar span {
+                padding: 6px 14px;
+                font-size: clamp(0.75rem, 4vw, 0.95rem);
+                backdrop-filter: blur(10px);
+            }
         }
 
         @media (max-width: 400px) {
@@ -275,6 +323,13 @@
             }
             .counter {
                 font-size: clamp(1.3rem, 4.5vw, 2rem);
+            }
+            .top-bar {
+                min-height: 32vh;
+            }
+            .top-bar span {
+                padding: 5px 12px;
+                max-width: 95%;
             }
         }
 
@@ -369,19 +424,17 @@
                 counterEl.innerHTML = "⚠️ خطأ في التوقيت";
                 return;
             }
-            // استخدام الأرقام الإنجليزية (الأساسية) عبر toString() وتحويل مباشر
-            const daysNum = diff.days;          // عدد صحيح، يظهر كإنجليزي تلقائياً (مثال: 1250)
+            // استخدام الأرقام الإنجليزية (الأساسية) عبر toString()
+            const daysNum = diff.days;
             const hoursNum = diff.hours;
             const minutesNum = diff.minutes;
             const secondsNum = diff.seconds;
             
-            // تنسيق الساعات والدقائق والثواني بحيث تكون مكونة من خانتين (بأرقام إنجليزية)
             const hoursStr = hoursNum < 10 ? '0' + hoursNum : hoursNum.toString();
             const minutesStr = minutesNum < 10 ? '0' + minutesNum : minutesNum.toString();
             const secondsStr = secondsNum < 10 ? '0' + secondsNum : secondsNum.toString();
             
-            // تعبئة المحتوى: الأرقام إنجليزية 100%، والنصوص "يوم" و"ساعة" إلخ عربية.
-            // المتطلب: "وحد ارقام العداد بالانجليزي خصوصاً بعد عبارة يوم" -> أيام وكل الأرقام لاتينية.
+            // تنسيق يوضح الأرقام بلغة لاتينية مع الكلمات العربية بعد كل رقم
             counterEl.innerHTML = `${daysNum} يوم<br>${hoursStr} ساعة<br>${minutesStr} دقيقة<br>${secondsStr} ثانية`;
         }
         
