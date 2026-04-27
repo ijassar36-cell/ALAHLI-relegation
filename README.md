@@ -10,11 +10,11 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation; /* تحسين اللمس ومنع التكبير الزائد */
+            touch-action: manipulation;
         }
 
         body, html {
-            overflow-x: hidden; /* منع التمرير الأفقي */
+            overflow-x: hidden;
             width: 100%;
         }
 
@@ -27,10 +27,9 @@
             align-items: center;
             padding: 16px;
             position: relative;
-            -webkit-text-size-adjust: 100%; /* منع تغيير حجم الخط تلقائياً في الجوال */
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* خلفية متحركة خفيفة */
         body::before {
             content: '';
             position: fixed;
@@ -54,7 +53,6 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
-            transition: all 0.3s ease;
             border: 1px solid rgba(0, 255, 200, 0.3);
         }
 
@@ -68,9 +66,16 @@
             max-width: 150px;
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 0 12px #00ffcc) brightness(1.05);
-            transition: transform 0.25s ease, filter 0.3s;
+            filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
+            transition: transform 0.25s ease;
             border-radius: 20px;
+            /* إزالة الخلفية البيضاء باستخدام blend-mode */
+            background: transparent;
+            mix-blend-mode: multiply;
+            isolation: isolate;
+        }
+        .club-logo:hover {
+            transform: scale(1.02);
         }
         .club-logo:active {
             transform: scale(0.98);
@@ -101,7 +106,7 @@
         }
 
         .counter {
-            font-size: clamp(1.6rem, 5vw, 2.6rem); /* حجم مرن لا يتجاوز 2.6rem ولا يقل عن 1.6rem */
+            font-size: clamp(1.6rem, 5vw, 2.6rem);
             font-weight: bold;
             font-family: 'Fira Mono', 'Courier New', 'Cascadia Code', monospace;
             line-height: 1.4;
@@ -124,7 +129,6 @@
             letter-spacing: 1px;
         }
 
-        /* تم إخفاء عنصر الحالة نهائياً */
         .status-area {
             display: none;
         }
@@ -195,7 +199,6 @@
             color: #bbffee;
         }
 
-        /* تحسينات الجوال (padding 12px على body) */
         @media (max-width: 550px) {
             body {
                 padding: 12px;
@@ -234,7 +237,6 @@
             }
         }
 
-        /* للأجهزة الصغيرة جداً */
         @media (max-width: 400px) {
             h1 {
                 font-size: 1.2rem;
@@ -248,7 +250,6 @@
             }
         }
 
-        /* تأثير وميض خفيف على العداد */
         @keyframes subtleGlow {
             0% { text-shadow: 0 0 4px #00ffcc; }
             100% { text-shadow: 0 0 12px #00ffe0; }
@@ -293,7 +294,6 @@
 
 <script>
     (function() {
-        // تاريخ الهبوط: 27 يونيو 2022 - 00:00:00 توقيت الرياض
         const RELEGATION_DATE_STR = "2022-06-27T00:00:00+03:00";
         let relegationTime = new Date(RELEGATION_DATE_STR);
         if (isNaN(relegationTime.getTime())) {
@@ -312,7 +312,6 @@
                 const elapsedMs = performance.now() - lastSyncPerf;
                 return new Date(lastSyncedRiyadhTime.getTime() + elapsedMs);
             }
-            // خلفية آمنة (توقيت الجهاز +3) بدون رسائل
             const nowDevice = new Date();
             return new Date(nowDevice.getTime() + (3 * 60 * 60 * 1000));
         }
