@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>⏳ عداد هبوط الأهلي | دوري يلو</title>
     <style>
         * {
@@ -14,26 +14,25 @@
         }
 
         html {
-            background: #010a08; /* لون خلفية ثابت للـ html */
-        }
-
-        body, html {
-            overflow-x: hidden;
-            width: 100%;
+            height: 100%;
+            background: #010a08;
         }
 
         body {
+            margin: 0;
             min-height: 100vh;
-            min-height: 100dvh; /* تحسين للأجهزة الحديثة */
+            min-height: 100dvh;
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
             font-family: 'Segoe UI', 'Tahoma', 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
+            align-items: flex-start;
             justify-content: center;
-            align-items: center;
-            padding: 16px;
-            padding-top: env(safe-area-inset-top); /* للشاشات ذات النوتش */
-            position: relative;
+            overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
+            position: relative;
         }
 
         body::before {
@@ -57,6 +56,7 @@
             padding: 24px 20px 28px;
             max-width: 600px;
             width: 100%;
+            margin: 20px 16px;
             text-align: center;
             box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
             border: 1px solid rgba(0, 255, 200, 0.3);
@@ -78,9 +78,6 @@
             background: transparent;
             mix-blend-mode: multiply;
             isolation: isolate;
-        }
-        .club-logo:hover {
-            transform: scale(1.02);
         }
         .club-logo:active {
             transform: scale(0.98);
@@ -119,6 +116,7 @@
             text-shadow: 0 0 8px #00ffc3, 0 0 2px #00ccaa;
             word-break: break-word;
             letter-spacing: 1px;
+            animation: subtleGlow 2s infinite alternate;
         }
 
         .units {
@@ -132,10 +130,6 @@
             color: #b2ffe6;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .status-area {
-            display: none;
         }
 
         .contact-area {
@@ -171,7 +165,6 @@
             border-radius: 40px;
             transition: all 0.2s;
             border: 0.5px solid #6effdc60;
-            touch-action: manipulation;
         }
         .whatsapp-link:active {
             transform: scale(0.97);
@@ -205,15 +198,10 @@
         }
 
         @media (max-width: 550px) {
-            body {
-                padding: 12px;
-                padding-top: env(safe-area-inset-top);
-                align-items: flex-start;
-                padding-top: calc(12px + env(safe-area-inset-top));
-            }
             .card {
                 padding: 20px 16px 24px;
                 border-radius: 40px;
+                margin: 16px 12px;
             }
             h1 {
                 font-size: 1.35rem;
@@ -259,9 +247,6 @@
         @keyframes subtleGlow {
             0% { text-shadow: 0 0 4px #00ffcc; }
             100% { text-shadow: 0 0 12px #00ffe0; }
-        }
-        .counter {
-            animation: subtleGlow 2s infinite alternate;
         }
     </style>
 </head>
