@@ -43,7 +43,7 @@
             left: 0;
             width: 100%;
             height: auto;
-            min-height: 25.3vh;
+            min-height: 40.3vh;
             background: #02100c;   /* لون خلفية معتم تماماً */
             background: linear-gradient(145deg, #031814 0%, #010f0b 100%);
             border-bottom: 2px solid rgba(0, 255, 200, 0.35);
@@ -107,7 +107,7 @@
         }
         /* تصغير الشعار – محافظ على النسبة */
         .club-logo {
-            max-width: 47px;
+            max-width: 27px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
