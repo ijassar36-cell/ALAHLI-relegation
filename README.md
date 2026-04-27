@@ -13,6 +13,10 @@
             touch-action: manipulation;
         }
 
+        html {
+            background: #010a08; /* لون خلفية ثابت للـ html */
+        }
+
         body, html {
             overflow-x: hidden;
             width: 100%;
@@ -20,12 +24,14 @@
 
         body {
             min-height: 100vh;
+            min-height: 100dvh; /* تحسين للأجهزة الحديثة */
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
             font-family: 'Segoe UI', 'Tahoma', 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 16px;
+            padding-top: env(safe-area-inset-top); /* للشاشات ذات النوتش */
             position: relative;
             -webkit-text-size-adjust: 100%;
         }
@@ -69,7 +75,6 @@
             filter: drop-shadow(0 0 8px #00ffcc) contrast(1.05) brightness(1.02);
             transition: transform 0.25s ease;
             border-radius: 20px;
-            /* إزالة الخلفية البيضاء باستخدام blend-mode */
             background: transparent;
             mix-blend-mode: multiply;
             isolation: isolate;
@@ -202,8 +207,9 @@
         @media (max-width: 550px) {
             body {
                 padding: 12px;
+                padding-top: env(safe-area-inset-top);
                 align-items: flex-start;
-                padding-top: 24px;
+                padding-top: calc(12px + env(safe-area-inset-top));
             }
             .card {
                 padding: 20px 16px 24px;
