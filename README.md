@@ -43,7 +43,7 @@
             left: 0;
             width: 100%;
             height: auto;
-            min-height: 40.3vh;
+            min-height: 30.3vh;
             background: #02100c;   /* لون خلفية معتم تماماً */
             background: linear-gradient(145deg, #031814 0%, #010f0b 100%);
             border-bottom: 2px solid rgba(0, 255, 200, 0.35);
