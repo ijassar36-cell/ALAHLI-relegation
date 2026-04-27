@@ -22,7 +22,7 @@
             margin: 0;
             min-height: 100vh;
             min-height: 100dvh;
-            padding-top: 0; /* بدون أي مسافة علوية */
+            padding-top: 0; /* منع أي مسافة علوية */
             padding-left: env(safe-area-inset-left);
             padding-right: env(safe-area-inset-right);
             background: radial-gradient(ellipse at 30% 40%, #0a2f2a, #010a08);
@@ -35,32 +35,38 @@
             position: relative;
         }
 
-        /* الشريط العلوي الثابت */
+        /* الشريط العلوي الثابت - ارتفاع 35vh مع تدرج */
         .top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 90px;
-            background: linear-gradient(to bottom, rgba(1,10,8,0.95), rgba(1,10,8,0.7), transparent);
+            height: 35vh;
+            background: linear-gradient(to bottom, 
+                        rgba(1,10,8,1), 
+                        rgba(1,10,8,0.95), 
+                        rgba(1,10,8,0.85), 
+                        rgba(1,10,8,0.6), 
+                        transparent);
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             z-index: 9999;
+            padding-bottom: 12px;
             padding-top: env(safe-area-inset-top);
             box-sizing: border-box;
-            pointer-events: none; /* يسمح بالضغط على المحتوى خلفه */
+            pointer-events: none; /* يسمح بالتفاعل مع المحتوى خلفه */
         }
         .top-bar span {
             font-weight: bold;
             color: #e0fff5;
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 4vw, 1rem);
             text-align: center;
             padding: 0 12px;
-            text-shadow: 0 0 4px #00ffcc66;
+            text-shadow: 0 0 6px #00ffcc66;
             letter-spacing: 0.3px;
-            line-height: 1.3;
-            pointer-events: auto; /* يسمح بتحديد النص إذا لزم */
+            line-height: 1.4;
+            pointer-events: auto;
         }
 
         /* خلفية متحركة */
@@ -85,7 +91,7 @@
             padding: 24px 20px 28px;
             max-width: 600px;
             width: 100%;
-            margin: 20px 16px 20px 16px; /* هامش علوي لمنع الالتصاق بالشريط */
+            margin: 20px 16px 20px 16px;
             text-align: center;
             box-shadow: 0 35px 55px rgba(0, 0, 0, 0.6), 0 0 0 1.5px rgba(0, 255, 200, 0.25), 0 0 20px rgba(0, 255, 200, 0.3);
             border: 1px solid rgba(0, 255, 200, 0.3);
@@ -241,9 +247,6 @@
             .forever-note {
                 font-size: 0.65rem;
             }
-            .top-bar span {
-                font-size: 0.85rem;
-            }
         }
 
         @media (max-width: 400px) {
@@ -253,9 +256,6 @@
             }
             .counter {
                 font-size: clamp(1.4rem, 4.5vw, 2.2rem);
-            }
-            .top-bar span {
-                font-size: 0.75rem;
             }
         }
 
@@ -267,7 +267,6 @@
 </head>
 <body>
 
-<!-- الشريط العلوي الثابت -->
 <div class="top-bar">
     <span>📉 عداد هبوط نادي الأهلي إلى دوري يلو منذ ٢٧ يونيو ٢٠٢٢</span>
 </div>
