@@ -35,13 +35,13 @@
             position: relative;
         }
 
-        /* الشريط العلوي - تقليل الارتفاع بنسبة 15% من 35vh إلى 29.75vh */
+        /* الشريط العلوي - تقليل إضافي بنسبة 15% ليصبح 25.3vh */
         .top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 29.75vh;  /* 35vh * 0.85 = 29.75vh */
+            height: 25.3vh;  /* 35vh * 0.85 * 0.85 = 25.2875 -> 25.3vh */
             background: linear-gradient(to bottom, 
                         rgba(1,10,8,1), 
                         rgba(1,10,8,0.95), 
